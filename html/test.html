@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <p id="p1" draggable="true">This element is draggable.</p>
+
+    <p id="target" ondrop="drop_handler(event)" ondragover="dragover_handler(event)" style="background-color: cornflowerblue">Element Drop Zone</p>
+
+    <div>
+        <p>엑셀 이미지 Ctrl C,V</p>
+        <img id="container" />
+    </div>
+
+
+    <script>
+        //dragstart event : drag할때 호출
+        function dragstart_handler(ev) {
+            // 드래그 데이터를 추가합니다.
+            ev.dataTransfer.setData("text/plain", ev.target.id);
+            ev.dataTransfer.setData("text/html", "<p>Example paragraph</p>");
+            ev.dataTransfer.setData("text/uri-list", "http://developer.mozilla.org");
+            ev.dataTransfer.dropEffect = "copy";
+        }
+
+        //ondragober event : 드래그한 요소가 drop zone에 오면 호출
+        function dragover_handler(ev) {
+            ev.dataTransfer.dropEffect = "move";
+            ev.preventDefault();
+            // dropEffect를 move로 설정.
+            
+        }
+
+        //ondrop event : 드래그한 요소를 drop zone 위에 놨을 때 호출
+        function drop_handler(ev) {
+            debugger;
+            ev.preventDefault();
+            // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다. 
+
+            const data = ev.dataTransfer.getData("text/plain");
+            if(data) ev.target.appendChild(document.getElementById(data));
+
+            for (let i = 0; i < ev.dataTransfer.files.length; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    let img = new Image();
+                    img.src = event.target.result;
+                    document.body.append(img);
+                };
+                reader.readAsDataURL(ev.dataTransfer.files[i]);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            // id를 통해 element를 가져옵니다.
+            const element = document.getElementById("p1");
+            // 'dragstart' 이벤트 리스터를 추가합니다.
+            element.addEventListener("dragstart", dragstart_handler);
+        });
+
+        window.addEventListener('paste', function(pasteEvent) {
+            var items = pasteEvent.clipboardData.items;
+            var blob = items[0].getAsFile();
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                document.querySelector('#container').src = event.target.result;
+            };
+            reader.readAsDataURL(blob);
+            debugger;
+
+        }, false);
+    </script>
+</body></html>
+<!--
+ev.dataTransfer.files[i].name
+
+ev.dataTransfer.items[i].getAsFile()
+
+1. 이미지 드래그 : 이미지 파일 O,  Excel 도형 : X
+복붙 : 이미지 파일 X, Excel 도형 : O
+-->

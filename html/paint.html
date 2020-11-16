@@ -34,8 +34,8 @@
             svg;
             initX = 0;
             initY = 0;
-            curX = 0;
-            curY = 0;
+            downX = 0;
+            downY = 0;
             panel;
             isMdown = false;
             constructor(initX, initY, panel) {
@@ -46,16 +46,18 @@
             }
             create() {
                 this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                panel.appendChild(this.svg);
+                this.panel.appendChild(this.svg);
                 this.svg.setAttribute('width', '300');
                 this.svg.setAttribute('height', '200');
-                this.svg.setAttribute('fill', 'red');
-                this.svg.setAttribute('x', this.curX);
-                this.svg.setAttribute('y', this.curY);
+                this.svg.setAttribute('fill', 'rgb(255,22,222)');
+                this.svg.setAttribute('x', 0);
+                this.svg.setAttribute('y', 0);
 
                 this.svg.addEventListener('click', ()=> {console.log('clicked')});
                 this.svg.addEventListener('mousedown', ()=> {
                     this.isMdown = true;
+                    this.downX = event.x - this.svg.getAttribute('x');
+                    this.downY = event.y - this.svg.getAttribute('y');
                 });
                 this.svg.addEventListener('mousemove', () => this.move());
                 this.svg.addEventListener('mouseup', () => {
@@ -67,8 +69,8 @@
                 if(!this.isMdown) return;
                 setLog('log1', event.x, event.y);
                 console.log('mousemove', event.x);
-                this.svg.setAttribute('x', event.x - this.svg.getAttribute('width') / 2);
-                this.svg.setAttribute('y', event.y - this.svg.getAttribute('height') / 2);
+                this.svg.setAttribute('x', event.x - this.downX);
+                this.svg.setAttribute('y', event.y - this.downY);
             }
         }
 

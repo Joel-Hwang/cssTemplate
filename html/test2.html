@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -7,7 +8,28 @@
 
 <body>
     <div>
-        <iframe src="http://127.0.0.1:62701/html/test.html" frameborder="0"></iframe>
-
+        <a href="http://203.228.101.197/digitalpcc/?StartItem=zx_pfc:044EC6FD963A40EE930D39054BE79FB1">test</a>
+        <a href="http://203.228.101.197/digitalpcc/?StartItem=zx_pfc:33B59567B7B446C4BD0968629774E671">test22</a>
+        <img src="" id="pastedImage">
     </div>
-</body></html>
+
+    <script>
+        window.onload = function() {
+
+            document.onpaste = function(event) {
+                var items = event.clipboardData.items;
+                console.log(JSON.stringify(items)); // will give you the mime types
+                var blob = items[0].getAsFile();
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    //console.log(event.target.result)
+                    document.querySelector('#pastedImage').src = event.target.result;
+                }; // data url  
+                reader.readAsDataURL(blob);
+            }
+        }
+
+    </script>
+</body>
+
+</html>

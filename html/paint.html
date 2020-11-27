@@ -10,8 +10,33 @@
 </head>
 
 <body>
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="500px"
-        height="500px" id="panel"></svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="800px"
+        height="800px" style="border: 1px solid gray;" id="panel">
+
+        <g>
+            <g>
+                <path id="lineAB" d="M 100 350 L 250 350 250 50 100 50 Z" stroke="red" stroke-opacity="1"
+                    stroke-linecap="square" stroke-width="1" fill="none" />
+            </g>
+            <g>
+                <rect width="10" height="10" x="95" y="345"
+                    style="fill:rgb(100,100,255);stroke-width:1;stroke:rgb(200,200,200)"></rect>
+                <rect width="10" height="10" x="170" y="345"></rect>
+                <rect width="10" height="10" x="245" y="345"></rect>
+                <rect width="10" height="10" x="245" y="195"></rect>
+                <rect width="10" height="10" x="245" y="45"></rect>
+                <rect width="10" height="10" x="170" y="45"></rect>
+                <rect width="10" height="10" x="95" y="45"></rect>
+                <rect width="10" height="10" x="95" y="195"></rect>
+            </g>
+            <g>
+                <path stroke="red" d="M 175 45 175 20"></path>
+                <circle stroke="red" cx="175" cy="15" r="5"></circle>
+            </g>
+        </g>
+
+    </svg>
     <button onclick="createRect()">rect</button>
     <div id="log1"></div>
     <div id="log2"></div>
@@ -26,6 +51,12 @@
 
 
         class Drawing {
+            randomColor() {
+                let r = Math.trunc(Math.random() * 1000 % 256);
+                let g = Math.trunc(Math.random() * 1000 % 256);
+                let b = Math.trunc(Math.random() * 1000 % 256);
+                return `rgb(${r},${g},${b})`;
+            }
             getWidth() {
                 return parseInt(this.getAttribute('width'));
             }
@@ -49,28 +80,62 @@
                 this.panel.appendChild(this.svg);
                 this.svg.setAttribute('width', '300');
                 this.svg.setAttribute('height', '200');
-                this.svg.setAttribute('fill', 'rgb(255,22,222)');
+                this.svg.setAttribute('fill', this.randomColor());
                 this.svg.setAttribute('x', 0);
                 this.svg.setAttribute('y', 0);
 
-                this.svg.addEventListener('click', ()=> {console.log('clicked')});
-                this.svg.addEventListener('mousedown', ()=> {
+                this.svg.addEventListener('mousedown', () => {
+                    console.log('mousedown');
                     this.isMdown = true;
                     this.downX = event.x - this.svg.getAttribute('x');
                     this.downY = event.y - this.svg.getAttribute('y');
                 });
                 this.svg.addEventListener('mousemove', () => this.move());
                 this.svg.addEventListener('mouseup', () => {
+                    console.log('mouseup');
                     this.isMdown = false;
                 });
             }
 
             move() {
-                if(!this.isMdown) return;
+                if (!this.isMdown) return;
                 setLog('log1', event.x, event.y);
                 console.log('mousemove', event.x);
                 this.svg.setAttribute('x', event.x - this.downX);
                 this.svg.setAttribute('y', event.y - this.downY);
+            }
+
+            showHandle() {
+                let minX = 100;
+                let maxX = 250;
+                let midX = (minX + maxX)/2;  //175
+                let minY = 50;
+                let maxY = 350;
+                let midY = (minY + maxY)/2;  //200
+                
+                `
+        <g>
+            <g>
+                <path id="lineAB" d="M ${minX} ${minY} L ${maxX} ${minY} ${maxX} ${maxY} ${minX} ${maxY} Z" stroke="red" stroke-opacity="1"
+                    stroke-linecap="square" stroke-width="1" fill="none" />
+            </g>
+            <g>
+                <rect width="10" height="10" x="95" y="345"
+                    style="fill:rgb(100,100,255);stroke-width:1;stroke:rgb(200,200,200)"></rect>
+                <rect width="10" height="10" x="170" y="345"></rect>
+                <rect width="10" height="10" x="245" y="345"></rect>
+                <rect width="10" height="10" x="245" y="195"></rect>
+                <rect width="10" height="10" x="245" y="45"></rect>
+                <rect width="10" height="10" x="170" y="45"></rect>
+                <rect width="10" height="10" x="95" y="45"></rect>
+                <rect width="10" height="10" x="95" y="195"></rect>
+            </g>
+            <g>
+                <path stroke="red" d="M 175 45 175 20"></path>
+                <circle stroke="red" cx="175" cy="15" r="5"></circle>
+            </g>
+        </g> 
+                `
             }
         }
 

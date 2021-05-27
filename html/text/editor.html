@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/link@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/paragraph@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
+
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="editorjs"></div>
+    <script>
+      window.onload = async function () {
+        const editor = new EditorJS({
+          holder: "editorjs",
+          tools: {
+            header: {
+              class: Header,
+              config: {
+                placeholder: "Enter a header",
+                levels: [2, 3, 4],
+                defaultLevel: 3,
+              },
+            },
+            list: {
+              class: NestedList,
+              inlineToolbar: true,
+            },
+            linkTool: {
+              class: LinkTool,
+              config: {
+                endpoint: "http://203.228.101.197:8080/drawio-custom_Web/bpfc",
+              },
+            },
+            raw: RawTool,
+            image: SimpleImage,
+            checklist: {
+              class: Checklist,
+              inlineToolbar: true,
+            },
+            quote: {
+              class: Quote,
+              inlineToolbar: true,
+              shortcut: "CMD+SHIFT+O",
+              config: {
+                quotePlaceholder: "Enter a quote",
+                captionPlaceholder: "Quote's author",
+              },
+            },
+            table: {
+              class: Table,
+            },
+            Marker: {
+              class: Marker,
+              shortcut: "CMD+SHIFT+M",
+            },
+            paragraph: {
+              class: Paragraph,
+              inlineToolbar: true,
+            },
+          },
+        });
+      };
+    </script>
+  </body>
+</html>

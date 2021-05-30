@@ -71,6 +71,14 @@
               inlineToolbar: true,
             },
           },
+          onChange: function(data) {
+               debugger;
+               //console.log('Now I know that Editor\'s content changed!');
+               data.saver.save().then((savedData) => {
+                   console.log(savedData)
+                   
+               });
+           }
         });
       };
       /*

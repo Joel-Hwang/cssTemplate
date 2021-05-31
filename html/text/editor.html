@@ -71,21 +71,15 @@
               inlineToolbar: true,
             },
           },
+          data : JSON.parse(document.thisItem.getProperty('_contents','{}')),
           onChange: function(data) {
-               debugger;
                //console.log('Now I know that Editor\'s content changed!');
                data.saver.save().then((savedData) => {
-                   console.log(savedData)
-                   
+                   window.handleItemChange('_contents',JSON.stringify(savedData));
                });
            }
         });
       };
-      /*
-      editor.save().then((savedData) => {
-        cPreview.show(savedData, document.getElementById("output"));
-      });
-      */
     </script>
   </body>
 </html>

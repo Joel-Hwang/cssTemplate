@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/editorjs-paragraph-with-alignment@3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/table@1.3.0/dist/bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"></script>
@@ -24,17 +23,13 @@
   <body>
     <div id="editorjs"></div>
     <script>
-      window.onload = async function () {
+      window.onload = function () {
         const editor = new EditorJS({
           holder: "editorjs",
           tools: {
             header: {
               class: Header,
-              config: {
-                placeholder: "Enter a header",
-                levels: [2, 3, 4],
-                defaultLevel: 3,
-              },
+              inlineToolbar: false,
             },
             list: {
               class: NestedList,
@@ -68,20 +63,16 @@
               class: Marker,
               shortcut: "CMD+SHIFT+M",
             },
-            paragraph: {
-              class: Paragraph,
-              inlineToolbar: true,
-            },
             video: SimpleVideo,
             alert: Alert,
           },
-         // data : JSON.parse(document.thisItem.getProperty('_contents','{}')),
-          onChange: function(data) {
-               //console.log('Now I know that Editor\'s content changed!');
-               data.saver.save().then((savedData) => {
-                   //window.handleItemChange('_contents',JSON.stringify(savedData));
-               });
-           }
+          // data : JSON.parse(document.thisItem.getProperty('_contents','{}')),
+          onChange: function (data) {
+            //console.log('Now I know that Editor\'s content changed!');
+            data.saver.save().then((savedData) => {
+              //window.handleItemChange('_contents',JSON.stringify(savedData));
+            });
+          },
         });
       };
     </script>

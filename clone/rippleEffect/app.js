@@ -1,6 +1,6 @@
 import { Dot } from './dot.js';
 import { Ripple } from './ripple.js';
-import { collide } from './utils.js';
+import { collide, getBWValue } from './utils.js';
 
 class App {
     constructor() {
@@ -17,8 +17,8 @@ class App {
         window.addEventListener('resize', this.resize.bind(this), false);
         this.resize();
 
-        this.radius = 10;
-        this.pixelSize = 30;
+        this.radius = 16;
+        this.pixelSize = 16;
         this.dots = [];
 
         this.isLoaded = false;
@@ -30,7 +30,7 @@ class App {
         };
 
         this.image = new Image();
-        this.image.src = '/img/16.jpg';
+        this.image.src = '/img/bg10.jpg';
         this.image.onload = () => {
             this.isLoaded = true;
             this.drawImage();
@@ -109,11 +109,17 @@ class App {
                 const red = this.imgData.data[pixelIndex+0];
                 const green = this.imgData.data[pixelIndex+1];
                 const blue = this.imgData.data[pixelIndex+2];
+                const scale = getBWValue(red,green,blue,false);
 
                 const dot = new Dot(
-                    x,y,this.radius,this.pixelSize,red,green,blue
+                    x,y,this.radius,this.pixelSize,red,green,blue, scale
                 );
-                this.dots.push(dot);
+
+                if(dot.targetRadius > 0.1){
+                    this.dots.push(dot);
+                }
+
+                
             }
         }
     }
@@ -136,7 +142,7 @@ class App {
         for(let i = 0; i<this.dots.length; i++){
             this.dots[i].reset();
         }
-        
+
         this.ctx.drawImage(this.image, 0, 0, this.image.width, this.image.height,
             this.imgPos.x, this.imgPos.y,
             this.imgPos.width, this.imgPos.height);

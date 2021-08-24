@@ -23,7 +23,7 @@
     //        const distortion = audioCtx.createWaveShaper()
     //        const gainNode = audioCtx.createGain()
     //        const biquadFilter = audioCtx.createBiquadFilter()
-
+	//스피커에 stream 전달하는 함수
     function makeSound(stream) {
       const source = audioCtx.createMediaStreamSource(stream);
 
@@ -42,7 +42,7 @@
         audio: true,
       };
       let chunks = [];
-
+		//stream이 마이크에서 넘어오는 소리 캡쳐하는듯
       navigator.mediaDevices
         .getUserMedia(constraints)
         .then((stream) => {
@@ -75,7 +75,7 @@
             record.style.background = "";
             record.style.color = "";
           };
-
+			//재생 영역 만들기
           mediaRecorder.onstop = (e) => {
             console.log("data available after MediaRecorder.stop() called.");
 
@@ -113,7 +113,7 @@
               evtTgt.parentNode.parentNode.removeChild(evtTgt.parentNode);
             };
           };
-
+		  //스트림을 받아오는 녀석인가?
           mediaRecorder.ondataavailable = (e) => {
             chunks.push(e.data);
           };

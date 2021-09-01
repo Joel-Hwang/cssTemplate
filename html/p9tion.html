@@ -16,36 +16,194 @@
 <body>
     <p class="h1">P9tion</p>
 
-    <div class="container px-4">
-        <div class="row gx-5">
 
-            <div class="col">
-                <div class="p-3 border bg-light">apple ( 😼🙉🦍😳 )</div>
-            </div>
-            <div class="col">
-                <div class="p-3 border bg-light">Custom column padding2</div>
-            </div>
-            <div class="col">
-                <div class="p-3 border bg-light">Custom column padding2</div>
-            </div>
-            <div class="col">
-                <div class="p-3 border bg-light">Custom column padding2</div>
-            </div>
-
+    <div style="text-align: center; width: 80%; margin: 120px auto;" ;>
+        <div class="form-floating mb-3">
+            <input type="email" class="form-control" id="ipQuiz" placeholder="name@example.com">
+            <label for="floatingInput">Put a Sentence</label>
         </div>
-    </div>
-    <div style="text-align: center";>
         <div class="jumbotron jumbotron-fluid">
             <div class="container">
-                <h1 class="display-3">I am a boy</h1>
+                <h1 class="display-3" id="result">I am a boy</h1>
                 <hr class="my-2">
-                <p>More info</p>
+                <h4 id="score">your Score : 100</h4>
                 <p class="lead">
-                    <a class="btn btn-primary btn-lg" href="Jumbo action link" role="button">🎤 Click and speak the sentece.</a>
+                    <a class="btn btn-primary btn-lg" role="button" id="speak">🎤 Click and speak the sentece.</a>
                 </p>
             </div>
         </div>
     </div>
+
+    <div class="d-flex align-items-start" id="recordAras">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <div style="margin-bottom: 20px;">
+                    <h5 class="card-title" style="display: inline; margin-right: 20px;">I am a boy</h5>
+                    <h6 class="card-subtitle mb-2 text-muted" style="display: inline;">Score : 100</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            let btnSpeak = document.querySelector('#speak');
+            btnSpeak.onclick = speakClick;
+            spchRecog.init();
+            recorder.init();
+        }
+
+        let updateResult = () => {
+            let lblResult = document.querySelector("#result");
+            lblResult.textContent = spchRecog.result;
+        }
+
+        let getScore = () => {
+            let ipQuiz = document.querySelector('#ipQuiz');
+            let lblResult = document.querySelector("#result");
+
+            let quiz = ipQuiz.value.toLowerCase().trim().split(' ');
+            let result = lblResult.textContent.toLowerCase().trim().split(' ');
+            let point = 0;
+            for (let i = 0; i < quiz.length; i++) {
+                if (result.length > i && quiz[i] == result[i]) {
+                    point++;
+                }
+            }
+
+            let score = document.querySelector('#score');
+            score.textContent = 'your score : ' + ((point / quiz.length) * 100);
+        }
+
+        let speakClick = e => {
+
+            if (spchRecog.speaking) {
+                updateResult();
+                spchRecog.stop();
+                recorder.stop();
+                e.target.textContent = "🎤 Click and speak the sentece.";
+                getScore();
+            } else {
+                spchRecog.start();
+                recorder.start();
+                e.target.textContent = "🎤 Speaking";
+            }
+            spchRecog.speaking = !spchRecog.speaking;
+
+        }
+
+        let spchRecog = {
+            mic: null,
+            speaking: false,
+            result: '',
+            init: () => {
+                spchRecog.mic = new webkitSpeechRecognition();
+                spchRecog.mic.continuous = true;
+                spchRecog.mic.interimResults = true;
+                spchRecog.mic.lang = /*'ko-KR'*/'en-US';
+                spchRecog.mic.onresult = spchRecog.onresult;
+                spchRecog.mic.onend = spchRecog.onend;
+
+            },
+            onresult: (e) => {
+                var b = '', c = false;
+                for (var i = e.resultIndex; i < e.results.length; ++i) {
+                    b += e.results[i][0].transcript;
+                    c = e.results[i].isFinal;
+                }
+                spchRecog.result = b;
+                updateResult();
+            },
+            onend: () => {
+                console.log(spchRecog.result);
+            },
+            start: () => {
+                spchRecog.mic.start();
+                speaking = true;
+            },
+            stop: () => {
+                spchRecog.mic.stop();
+                speaking = false;
+            },
+            toggle: () => {
+                if (spchRecog.speaking) {
+                    spchRecog.stop();
+                } else {
+                    spchRecog.start();
+                }
+                spchRecog.speaking = !spchRecog.speaking;
+            }
+
+        }
+
+
+        let recorder = {
+            mediaRecorder:{},
+            chunks : [],
+            init : () => {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // 오디오 컨텍스트 정의
+                const analyser = audioCtx.createAnalyser();
+                //const distortion = audioCtx.createWaveShaper()
+                //const gainNode = audioCtx.createGain()
+                //const biquadFilter = audioCtx.createBiquadFilter()
+                navigator.mediaDevices.getUserMedia({audio: true,}).then((stream) => {
+                    recorder.mediaRecorder = new MediaRecorder(stream);
+                    recorder.mediaRecorder.onstop = recorder.addPlayer;
+
+                    recorder.mediaRecorder.ondataavailable = (e) => {
+                        recorder.chunks.push(e.data);
+                    }
+                });
+            },
+            start : () => {
+                recorder.mediaRecorder.start();
+                console.log(recorder.mediaRecorder.state);
+                console.log("recorder started");
+            },
+            stop : () => {
+                recorder.mediaRecorder.stop();
+                console.log(recorder.mediaRecorder.state);
+                console.log("recorder stopped");
+            },
+            addPlayer : (e) => {
+                console.log("data available after MediaRecorder.stop() called.");
+                const clipContainer = document.createElement("article");
+                const clipLabel = document.createElement("p");
+                const audio = document.createElement("audio");
+                clipContainer.classList.add("clip");
+                audio.setAttribute("controls", "");
+                audio.style.width = '250px';
+                clipContainer.appendChild(audio);
+                audio.controls = true;
+                const blob = new Blob(recorder.chunks, {
+                    type: "audio/ogg codecs=opus",
+                });
+                recorder.chunks = [];
+                const audioURL = URL.createObjectURL(blob);
+                audio.src = audioURL;
+                console.log("recorder stopped");
+                document.querySelector('.card-body').appendChild(clipContainer);
+            },
+        
+        }
+
+
+        /*
+        
+        const clipContainer = document.createElement("article");
+            const clipLabel = document.createElement("p");
+            const audio = document.createElement("audio");
+            const deleteButton = document.createElement("button");
+
+            clipContainer.classList.add("clip");
+            audio.setAttribute("controls", "");
+
+            clipContainer.appendChild(audio);
+            document.querySelector('#recordAras').appendChild(clipContainer);
+        
+        */
+    </script>
+
 </body>
 
 </html>

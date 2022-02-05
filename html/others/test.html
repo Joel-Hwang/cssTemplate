@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<title>Invitation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            retrieveGuestBook();
+            addToServer('title','2018-09-15','2018-09-22','description');
+        })
+        
+        function addToServer(title, gotDate, expiredDate, desc) {
+            jQuery.ajax({
+                type: "POST",
+                url: "https://www.tistory.com/apis/comment/write",
+                data: {
+                    access_token: "dd72c9fe7a101b8c80a47aae88c51611_02df53d1f69b60e8343dd55bf08b8a00",
+                    blogName: "invit",
+                    postId: "4",
+                    content: title + '@xhdtlswk@' + gotDate + '@xhdtlswk@' + expiredDate + '@xhdtlswk@' + desc,
+                    output: 'xml'
+                },
+                success: function(data) {
+                    alert(data);
+                    debugger;
+                },
+                error: function(request,status,error) {
+                   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    debugger;
+                },
+                complete: function(data) {
+                    alert(data);
+                    debugger;
+                }
+            })
+        }
+        
+        
+        function retrieveGuestBook() {
+            jQuery.ajax({
+                    method: "GET",
+                    url: "https://www.tistory.com/apis/comment/list",
+                    data: {
+                        access_token: "dd72c9fe7a101b8c80a47aae88c51611_02df53d1f69b60e8343dd55bf08b8a00",
+                        blogName: "invit",
+                        postId: "2",
+                        output: 'json'
+                    },
+                    success: function(data) {
+                        alert(data);
+                        debugger;
+                    }
+                })
+                .done(function(msg) {
+                    var arComments = msg.tistory.item.comments;
+                    var arColors = ["w3-light-grey","w3-grey","w3-dark-grey"];
+                    for(var i in arComments){
+                        var comment = arComments[i].comment.split('@xhdtlswk@');
+                        jQuery('#divGuestBook').prepend('<div class="w3-col l3 m6 '+arColors[i%3]+' w3-container w3-padding-8"><h3>'+comment[0]+'</h3><p>'+comment[1]+'</p></div>')
+                    }
+                    // msg.tistory.item.comments
+                });
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="divGuestBook"></div>
+</body>
+
+</html>

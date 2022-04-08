@@ -6,8 +6,9 @@
     <style>
       table {
         border: solid 1px black;
-        margin: 4px;
-        padding: 4px;
+        height:fit-content;
+        margin: 14px;
+        padding: 14px;
       }
     </style>
   </head>
@@ -70,11 +71,11 @@
 
       function generate(node) {
         if (!node) return "";
-        let head = "<table>";
+        let head = `<table>`;
         let body = "";
         for (let key in node) {
           if (Array.isArray(node[key])) {
-            body += `<tr><td>${key}</td><td>`;
+            body += `<tr><td>${key}</td><td style="display:flex; flex-wrap:wrap">`;
             for (let i = 0; i < node[key].length; i++) {
               body += generate(node[key][i]);
             }

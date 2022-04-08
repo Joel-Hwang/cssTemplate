@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style>
+      table {
+        border: solid 1px black;
+        margin: 4px;
+        padding: 4px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="jsonTable"></div>
+    <script>
+      let json = {
+        data: [
+          {
+            componetNum: "13",
+            compName: "COLLAR FOAM",
+            cutMethod: "",
+            dieType: "SINGLE DIE",
+            ofPart: "1",
+            layers: "4",
+          },
+          {
+            componetNum: "14",
+            compName: "COLLAR 2",
+            cutMethod: "",
+            dieType: "SINGLE DIE",
+            ofPart: "1",
+            layers: "4",
+          },
+          {
+            componetNum: "15",
+            compName: "COLLAR LINING",
+            cutMethod: "",
+            dieType: "SINGLE DIE",
+            ofPart: "1",
+            layers: "4",
+          },
+          {
+            componetNum: "16",
+            compName: "COLLAR FOAM 2",
+            cutMethod: "",
+            dieType: "SINGLE DIE",
+            ofPart: "1",
+            layers: {
+              componetNum: "16",
+              compName: "COLLAR FOAM 2",
+              cutMethod: "",
+              dieType: "SINGLE DIE",
+              ofPart: "1",
+              layers: [
+                { componetNum: "16", compName: "COLLAR FOAM 2" },
+                { componetNum: "16", compName: "COLLAR FOAM 2" },
+                { componetNum: "16", compName: "COLLAR FOAM 2" },
+              ],
+            },
+          },
+        ],
+      };
+
+      window.onload = () => {
+        let jsonTable = document.querySelector("#jsonTable");
+        jsonTable.innerHTML = generate(json);
+      };
+
+      function generate(node) {
+        if (!node) return "";
+        let head = "<table>";
+        let body = "";
+        for (let key in node) {
+          if (Array.isArray(node[key])) {
+            body += `<tr><td>${key}</td><td>`;
+            for (let i = 0; i < node[key].length; i++) {
+              body += generate(node[key][i]);
+            }
+            body += "</td>";
+          } else if (typeof node[key] === "object") {
+            body += `<tr><td>${key}</td><td>${generate(node[key])}</td>`;
+          } else {
+            body += `<tr><td>${key}</td><td>${node[key]}</td></tr>`;
+          }
+        }
+        let tail = "</table>";
+        return head + body + tail;
+      }
+    </script>
+  </body>
+</html>

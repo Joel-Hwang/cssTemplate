@@ -75,7 +75,7 @@
         let body = "";
         for (let key in node) {
           if (Array.isArray(node[key])) {
-            body += `<tr><td>${key}</td><td style="display:flex; flex-wrap:wrap">`;
+            body += `<tr><td>${key}</td><td style="display:flex; flex-wrap:wrap; justify-content: start">`;
             for (let i = 0; i < node[key].length; i++) {
               body += generate(node[key][i]);
             }

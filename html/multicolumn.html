@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        .page {
+            width: 21cm;
+            min-height: 29.7cm;
+            padding: 2cm;
+            margin: 0 auto;
+            background: #eee;
+        }
+
+        .subpage {
+            border: 2px red solid;
+            background: #fff;
+            height: 257mm;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+
+            html,
+            body {
+                width: 210mm;
+                height: 297mm;
+            }
+
+            .page {
+                margin: 0;
+                border: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+
+        #myDIV {
+            background-color: #FFFFFF;
+            column-count: 2;
+            width: 630px;
+            column-gap: 3em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+        <div class="subpage">
+            <div id="myDIV">
+                1. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                2. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                3. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                4. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                5. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                6. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                7. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                8. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                9. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                10. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                11. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation 
+                   
+                
+                
+            </div>
+        </div>
+        <div class="subpage" style="margin-top:100px;">
+            <div id="myDIV">
+                ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                12. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                13. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                14. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+                15. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis
+                nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit
+                in vulputate velit esse molestie consequat,
+                vel illum dolore eu feugiat nulla facilisis at vero eros
+                et accumsan et iusto odio dignissim qui blandit praesent luptatum.
+                <br><br><br>
+            </div>
+        </div> 
+    </div>
+</body>
+
+</html>

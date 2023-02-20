@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
   <div id="output">
-
   </div>
+  <script src="script.js"></script>
   <script>
     window.onload = () =>{
-      let faces = ['Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King'];
-      let shapes = ['Spades','Hearts','Diamonds','Clubs'];
-      let deck = [];
-      for(let face of faces)
-        for(let shape of shapes)
-          deck.push({value:face,suit:shape});
-          
-      let cardsSet = new Set();
-      while(cardsSet.size < 5){
-        let num = Math.floor(Math.random()*52);
-        cardsSet.add(num);
+    let faces = ['Ace','2','3','4','5','6','7','8','9','10','Jack','Queen','King'];
+    let suits = ['Spades','Hearts','Diamonds','Clubs'];
+    let deck = []; //손에 들고 있는 것들을 데크라고 하나봐
+
+    for(let face of faces){ //페이스 한바퀴 돌리고,
+      for(let suit of suits){ //모양 한바퀴 돌려서 전체 카드 한바퀴 돌린다. (뭘 먼저 돌려도 상관없는가?)
+        deck.push({value:face,suit:suit}); //벨류에는 페이스, 수트에는 수트 속성(property)지정해주는 부분
       }
-      let res = '';
-      for(let cardSet of cardsSet){
-        let card = `${deck[cardSet].value} of ${deck[cardSet].suit}`;
-        res += card+'<br>';
+    }
+      
+    let cards =[];
+    while(cards.length <30){ //5장보다 적을 때 while문 돌아라. 아래와 같이
+      let num = Math.floor(Math.random() * 52); //num은 52장의 랜덤정수다.(이걸 왜 하는거지? 난수를 왜구해야하나?)
+      if(!cards.includes(deck[num])){ //만약 데크에 숫자가 없을 때
+        cards.push(deck[num]); //데크에 둬라.
       }
-      document.querySelector('#output').innerHTML = res;
+    }
+    cards.sort();
+      
+      document.querySelector('#output').innerHTML = cards.map(card => `${card.value}의 ${card.suit}`).join('<br>');
     }
   </script>
+  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script> 
 </body>
+
 </html>

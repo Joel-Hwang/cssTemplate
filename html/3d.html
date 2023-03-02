@@ -81,17 +81,17 @@
 
 				new MTLLoader()
 					.setPath( '/models/' )
-					.load( '3D 모델링.mtl', function ( materials ) {
+					.load( '3D 모델링asdasdasdasdasdmtl', function ( materials ) {
 
 						materials.preload();
 
 						new OBJLoader()
 							.setMaterials( materials )
 							.setPath( '/models/' )
-							.load( '3D 모델링.obj', function ( object ) {
+							.load( '3D 모델링asdasdazzzobj', function ( object ) {
                                 //object.position.set( 1, 1, 0 );
 								object.position.x = - 185;
-								object.position.y = - 95;
+								object.position.y = - 75;
 								scene.add( object );
 
 							}, onProgress );

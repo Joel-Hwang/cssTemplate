@@ -16,51 +16,35 @@
     </style>
 </head>
 
-<body>
-    <section id="failReason">TEST</section>
-    <div>
-    <ul id="barcode-list"></ul>
-    </div>
+<body style="margin: 0px; padding: 0px;">
+    <video></video>
     <script>
+        //test.html과 상호작용
         window.onload = () => {
-            //window.addEventListener("message",postMessageAction);
             detect();
         };
 
         async function detect() {
             const barcodeDetector = new BarcodeDetector();
-            const list = document.getElementById("barcode-list");
-            let itemsFound = [];
             const mediaStream = await navigator.mediaDevices.getUserMedia({
                 video: { facingMode: "environment" }
             });
 
-            const video = document.createElement("video");
-            video.style.width = '50%';
-            video.style.height = '50%';
+            const video = document.querySelector("video");
+            video.style.width = '100%';
+            //video.style.height = '50%';
             video.srcObject = mediaStream;
             video.autoplay = true;
-
-            list.before(video);
 
             function render() {
                 barcodeDetector
                     .detect(video)
                     .then((barcodes) => {
-                        barcodes.forEach((barcode) => {
-                            if (!itemsFound.includes(barcode.rawValue)) {
-                                itemsFound.push(barcode.rawValue);
-                                const li = document.createElement("li");
-                                li.innerHTML = barcode.rawValue;
-                                list.appendChild(li);
-                                if(opener)
-                                    opener.postMessage(
-                                        { action: "scan", data: barcode.rawValue },
-                                        opener.location
-                                )   ;
+                        //barcodes.forEach((barcode) => {
+                            if(parent)
+                                parent.postMessage({ action: "scan", data: barcodes[0].rawValue },parent.location.href);
                                 
-                            }
-                        });
+                        //});
                     })
                     .catch(error => { 
                         document.querySelector('#failReason').textContent = error; 
